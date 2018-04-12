@@ -1,4 +1,4 @@
-# stupidApp Predictor
+# StupidApp Predictor
 A predictor for stupid app trivia game
 
 ## Before starting you need
@@ -30,4 +30,14 @@ STEP 1 and STEP 2 of the [given answer at stackoverflow will help you with it](h
      adb pull /mnt/sdcard/sc.png
      python getAnswersStupid.py --image sc.png
 ```
+
+ ## Contribution
+ 
+ You all are invited to contribute to this project.
+ 
+ 
+ ## Disclaimer
+ 
+ Use of this program to win trivia games is not the intend of developing it and I hope people use it in its 
+ intended way.
 
