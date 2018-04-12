@@ -1,20 +1,20 @@
 #  -*- coding: utf-8 -*-
 
 # import the necessary packages
-
-
+import pprint
+#import webbrowser
 from PIL import Image
 from PIL import ImageGrab
 import pytesseract
 import argparse
 import cv2
 import os
+import requests
+#from urllib import parse
 
 
-# use your own cse id and google api key
-my_api_key ="your api key"
-my_cse_id = "your cse id"
-
+# replace it with your subscription key
+subscription_key = "your subscription key"
 
 # I am referring https://www.pyimagesearch.com/2017/07/10/using-tesseract-ocr-python/
 # for optical image recognition
@@ -79,29 +79,27 @@ for i in range(length):
     else:
         question=partOfArray+" "+question
 
+
+#webbrowser.open('https://www.google.co.in/search?q=' +  parse.quote_plus(question), new=2)
+
 print(optionArray)
 print(question)
 optionArray.reverse()
 question=question.strip()
 
 
-
-from googleapiclient.discovery import build
-
-def google_search(search_term, api_key, cse_id, **kwargs):
+def bingAPI(search_term):
     """
     :param search_term: the question to be searched
-    :param api_key: your google api key
-    :param cse_id: your cse id
-    :param kwargs: random required argument
-    :return: the json containing the google results
+    :return: array of results containing the heading of the result plus its details
     """
-    service = build("customsearch", "v1", developerKey=api_key)
-    res = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
-    return res['items']
-
-results = google_search(question, my_api_key, my_cse_id, num=10)
-
+    assert subscription_key
+    search_url = "https://api.cognitive.microsoft.com/bing/v7.0/search"
+    headers = {"Ocp-Apim-Subscription-Key": subscription_key}
+    params = {"q": search_term, "textDecorations": True, "textFormat": "HTML"}
+    response = requests.get(search_url, headers=headers, params=params)
+    response.raise_for_status()
+    return response.json()['webPages']['value']
 
 
 
@@ -132,21 +130,22 @@ def calc(wordString,result):
     return mean
 
 
-
-
+# results is the array of the search results
+results=bingAPI(question)
 
 # Here we are calculating the answer
-# score represents the mean occurences of an option in google result
-# highScore represent the option which have highest mean occurences in the google result
+# score represents the occurences of an option in google result with some twist
+# highScore represent the option which have highest occurences in the google result with some twist
 highScore=0
 max_i=-1
 
 for i in range(noOfOption):
     score=0
     for result in results:
-        result = result['htmlSnippet']
+        resultHeading=result['name']
+        result=result['snippet']
+        score=score*2+resultHeading.count(optionArray[i])
         score = score+calc(optionArray[i],result)
-
 
 
     if(score>highScore):
