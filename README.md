@@ -22,7 +22,8 @@ A predictor for stupid app trivia game
     chcp 65001
  ```
  * Now connect the phone with USB and recheck if your phone is in debugging mode and have adb installed.
- * Keep the screen of the phone on and type these command in cmd
+ * Keep the screen of the phone on and copy these command in cmd when the question appears in the game.
+ **CHEERS**
 ```
      adb shell screencap -p /mnt/sdcard/sc.png
      adb pull /mnt/sdcard/sc.png
