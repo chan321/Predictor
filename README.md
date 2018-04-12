@@ -14,20 +14,20 @@ STEP 1 and STEP 2 of the [given answer at stackoverflow will help you with it](h
   * googleapiclient
   
   
-  ## How to use for Windows user?
-  
-  * Open the script getAnswersStupid and replace *my_api_key* and *my_cse_id* with your key and id.
-  * Copy the script to some Folder
-  * Open the cmd and point to that location where you have saved the script
-  * Write the command 
-  ```
-  chcp 65001
-  ```
-  * Now connect the phone with USB and recheck if your phone is in debugging mode and have adb installed.
-  * Keep the screen of the phone on and type these command in cmd
+ ## How to use for Windows user?
+
+ * Open the script getAnswersStupid and replace *my_api_key* and *my_cse_id* with your key and id.
+ * Copy the script to some Folder
+ * Open the cmd and point to that location where you have saved the script
+ * Write the command 
+ ```
+    chcp 65001
+ ```
+ * Now connect the phone with USB and recheck if your phone is in debugging mode and have adb installed.
+ * Keep the screen of the phone on and type these command in cmd
 ```
-      adb shell screencap -p /mnt/sdcard/sc.png
-      adb pull /mnt/sdcard/sc.png
-      python getAnswersStupid.py --image sc.png
+     adb shell screencap -p /mnt/sdcard/sc.png
+     adb pull /mnt/sdcard/sc.png
+     python getAnswersStupid.py --image sc.png
 ```
-    
+
